@@ -1,7 +1,11 @@
 import * as React from 'react'
 import styled from '@emotion/styled'
 
-const Button = styled.button`
+type Props = {
+	silent?: boolean
+}
+
+const Button = styled.button<Props>`
   color: ${props => (props.silent ? 'inherit' : '#000')};
 	background-color: ${props => (props.silent ? 'transparent' : 'inherit')};
 	box-shadow: ${props => (props.silent ? 'none' : 'inherit')};
@@ -18,6 +22,9 @@ const Button = styled.button`
 	&:hover {
 		background-color: rgba(121,98,140,.075)
 	}
+	&:active {
+		box-shadow: -0.09375rem -0.09375rem 0 0.09375rem #f2b712, 0 0 0 0.1875rem #e1567c
+	}
 `
 
 export const PrimaryButton = styled(Button)`
@@ -28,6 +35,10 @@ export const PrimaryButton = styled(Button)`
 	&:hover {
     background-color: #c73852;
   }
+`
+
+export const SecondaryButton = styled(Button)`
+	color: #e1567c;
 `
 
 export default Button

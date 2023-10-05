@@ -22,7 +22,7 @@ const Header = () => {
 				<nav>
 					<ul className={navLinks}>
 						<li className={navLinkItem}>
-							<Button>Product</Button>
+							<Button silent>Product</Button>
 						</li>
 						<li className={navLinkItem}>
 							<Button silent>Pricing</Button>

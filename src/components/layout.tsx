@@ -2,13 +2,10 @@ import * as React from 'react'
 import {graphql, Link, useStaticQuery} from 'gatsby'
 import {
 	container,
-	heading,
-	navLinks,
-	navLinkItem,
-	navLinkText,
-	siteTitle
+	heading
 } from './layout.module.css'
 import Header from "./header";
+import Footer from "./footer";
 const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ pageTitle, children }) => {
 	const data = useStaticQuery(graphql`
 		query {
@@ -26,6 +23,7 @@ const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ p
 				<h1 className={heading}>{pageTitle}</h1>
 				{children}
 			</main>
+			<Footer/>
 		</div>
 	)
 }
