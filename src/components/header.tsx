@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import Link from './link'
 import {
 	navLinks,
 	navLinkItem,
@@ -8,7 +8,7 @@ import {
 	logo
 } from './header.module.css'
 import sentryLogo from '../images/sentry-logo.svg'
-import Button from "./button";
+import Button, {PrimaryButton} from "./button";
 
 const Header = () => {
 	return (
@@ -25,22 +25,24 @@ const Header = () => {
 							<Button>Product</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button>Pricing</Button>
+							<Button silent>Pricing</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button>Docs</Button>
+							<Button silent>Docs</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button>Resources</Button>
+							<Button silent>Resources</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button>Blog</Button>
+							<Link to="/blog">
+								<Button silent>Blog</Button>
+							</Link>
 						</li>
 						<li className={navLinkItem}>
-							<Button>Sign In</Button>
+							<Button silent>Sign In</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button primary>Get Started</Button>
+							<PrimaryButton>Get Started</PrimaryButton>
 						</li>
 					</ul>
 				</nav>
