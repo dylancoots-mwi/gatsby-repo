@@ -19,6 +19,7 @@ const Button = styled.button<Props>`
 	padding: 0 0.875em;
 	border-radius: 2em;
 	text-transform: uppercase;
+	max-width: fit-content;
 	&:hover {
 		background-color: rgba(121,98,140,.075)
 	}

@@ -6,6 +6,7 @@ import {
 } from './layout.module.css'
 import Header from "./header";
 import Footer from "./footer";
+import PreFooter from "./footer/prefooter";
 const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ pageTitle, children }) => {
 	const data = useStaticQuery(graphql`
 		query {
@@ -23,6 +24,7 @@ const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ p
 				<h1 className={heading}>{pageTitle}</h1>
 				{children}
 			</main>
+			<PreFooter/>
 			<Footer/>
 		</div>
 	)
