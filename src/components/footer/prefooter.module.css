@@ -1,0 +1,46 @@
+@media screen and (min-width: 768px) {
+    .links-container {
+        padding-bottom: 2em;
+    }
+    .company-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (min-width: 576px) {
+    .links-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.company-container {
+    grid-column: 1;
+}
+
+.platforms-container {
+    grid-column: 2;
+}
+
+.platforms-container > div ul {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.container {
+    margin-top: 5em;
+}
+
+.category-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: grid;
+    grid-row-gap: 0.5rem;
+}
+
+.category-list li button a {
+    text-decoration: none;
+    color: inherit;
+}

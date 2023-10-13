@@ -14,7 +14,7 @@ const DrumsPage : React.FC = () => (
 	</Layout>
 )
 
-export const Head : React.FC = () => <Seo title="Drumming"/>
+// export const Head : React.FC = () => <Seo title="Drumming"/>
 
 
 export default DrumsPage

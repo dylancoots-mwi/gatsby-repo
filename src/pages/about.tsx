@@ -24,6 +24,6 @@ const AboutPage : React.FC = () => {
 	)
 }
 
-export const Head : React.FC = () => <Seo title="About Me"/>
+// export const Head : React.FC = () => <Seo title="About Me"/>
 
 export default AboutPage
