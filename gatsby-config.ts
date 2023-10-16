@@ -23,6 +23,14 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
+        name: `for`,
+        path: `${__dirname}/for`,
+        ignore: [`${__dirname}/blog`]
+      }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
         name: `blog`,
         path: `${__dirname}/blog`,
       }
