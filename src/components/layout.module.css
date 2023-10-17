@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+div {
+    display: block;
+}
+
 .container {
     margin: auto;
     width: 100%;
