@@ -42,5 +42,16 @@ export const SecondaryButton = styled(Button)`
 	color: #e1567c;
 `
 
+export const TertiaryButton = styled(Button)`
+	background-color: #fff;
+	border: .125rem solid #8c5393;
+  box-shadow: 0 2px 0 rgba(54,45,89,.1);
+  transition: color .2s,border-color .2s,background-color .2s,box-shadow .2s,height .2s,line-height .2s,opacity .2s;
+	&:hover {
+    background-color: #8c5393;
+    color: #fff;
+	}
+`
+
 export default Button
 

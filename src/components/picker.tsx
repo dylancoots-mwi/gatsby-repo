@@ -4,7 +4,8 @@ import {GatsbyImage, getImage} from "gatsby-plugin-image";
 import {pickerContainer, gatsbyImage} from "./picker.module.css"
 
 type Props = {
-	items: PickerItems
+	items: PickerItems,
+	onChange: Function
 }
 
 type PickerItems = Array<{
@@ -31,12 +32,12 @@ const ImageContainer = styled.div`
 	justify-content: center;
 `
 
-const Picker : React.FC<Props> = ({items}) => {
+const Picker : React.FC<Props> = ({items, onChange}) => {
 	return (
     <div className={pickerContainer}>
       {items.map((item, index) => (
         <Label>
-					<input type="radio" value={item.value} key={index} name="platform" />
+					<input type="radio" value={item.value} key={index} name="platform" onChange={onChange} />
 					<div>
 						<ImageContainer>
 							<GatsbyImage image={getImage(item.src)} alt={item.label} className={gatsbyImage}/>

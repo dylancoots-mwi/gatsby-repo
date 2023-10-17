@@ -4,6 +4,8 @@ import Seo from '../../components/seo'
 import {graphql, PageProps} from "gatsby";
 import styled from "@emotion/styled";
 import Picker from "../../components/picker";
+import {TertiaryButton} from "../../components/button";
+import {useEffect} from "react";
 
 type Data = {
 	mdx: {
@@ -25,13 +27,45 @@ const Container = styled.div`
   background-color: rgb(246, 246, 248);
 `
 
+const Header = styled.div`
+	text-align: center;
+	max-width: 750px;
+	margin: 0 auto;
+`
+
+const Footer = styled.div`
+	text-align: center;
+`
+
 const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }) => {
+
+	const [platformFlavor, setPlatformFlavor] = React.useState(null);
+	const [subChildren, setSubChildren] = React.useState(null);
+	const onPickerChange = ({ target: { value }}) => setPlatformFlavor(value);
+
+	useEffect(() => {
+		console.log(platformFlavor);
+	}, [platformFlavor]);
+
+
 	return (
 		<Layout pageTitle={data?.mdx?.frontmatter?.title}>
 			<Container>
-				<h2>Getting Started is Simple</h2>
-				<Picker items={data.mdx.frontmatter.images}/>
+				<Header>
+					<h2>Getting Started is Simple</h2>
+				</Header>
+				{data?.mdx?.frontmatter?.images?.length > 0 && (
+					<Picker items={data.mdx.frontmatter.images} onChange={onPickerChange}/>
+				)}
 				{children}
+				<Footer>
+					<p>
+						Check our <a href="">documentation</a> for the latest instructions.
+					</p>
+					<TertiaryButton>
+						SEE ALL PLATFORMS
+					</TertiaryButton>
+				</Footer>
 			</Container>
 		</Layout>
 	)
