@@ -2,7 +2,7 @@ exports.createSchemaCustomization = ({ actions }) => {
 	const {createTypes} = actions
 	const typeDefs = `
     type MdxFrontmatter implements Node {
-      title: String!
+      title: String
       topic: String
       slug: String
       images: [Image]
@@ -16,6 +16,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     	label: String
     	value: String
     	src: File @fileByRelativePath
+    	content: File @fileByRelativePath
     }
   `;
 	createTypes(typeDefs)

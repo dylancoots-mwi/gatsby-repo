@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
-import {graphql, PageProps} from "gatsby";
+import {graphql, PageProps, useStaticQuery} from "gatsby";
 import styled from "@emotion/styled";
 import Picker from "../../components/picker";
 import {TertiaryButton} from "../../components/button";
@@ -13,8 +13,9 @@ type Data = {
 			title: string,
 			images: Array<{
 				label: string,
-				value: string
-				src: File
+				value: string,
+				src: File,
+				content: File
 			}>
 		}
 	}
@@ -39,14 +40,17 @@ const Footer = styled.div`
 
 const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }) => {
 
-	const [platformFlavor, setPlatformFlavor] = React.useState(null);
-	const [subChildren, setSubChildren] = React.useState(null);
-	const onPickerChange = ({ target: { value }}) => setPlatformFlavor(value);
+	const [topic, setTopic] = React.useState(data.mdx.frontmatter.topic)
+	const [mdxContent, setMdxContent] = React.useState(children)
+
+	const onPickerChange = ({ target: { value }}) => setTopic(value);
 
 	useEffect(() => {
-		console.log(platformFlavor);
-	}, [platformFlavor]);
+		const resolveMdxContent = () =>
+			data?.mdx?.frontmatter?.images?.filter(image => image.value === topic)[0]?.content?.childMdx?.body
 
+		setMdxContent(resolveMdxContent())
+  }, [topic])
 
 	return (
 		<Layout pageTitle={data?.mdx?.frontmatter?.title}>
@@ -57,7 +61,7 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 				{data?.mdx?.frontmatter?.images?.length > 0 && (
 					<Picker items={data.mdx.frontmatter.images} onChange={onPickerChange}/>
 				)}
-				{children}
+				{mdxContent}
 				<Footer>
 					<p>
 						Check our <a href="">documentation</a> for the latest instructions.
@@ -76,6 +80,7 @@ export const query = graphql`
 		mdx(id: {eq: $id}) {
 			frontmatter {
 				title
+				topic
 				images {
 					label
 					value
@@ -84,6 +89,11 @@ export const query = graphql`
               gatsbyImageData
             }
           }
+          content {
+            childMdx {
+            	body
+            }
+					}
 				}
 			}
 		}

@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from "@emotion/styled";
 import {GatsbyImage, getImage} from "gatsby-plugin-image";
 import {pickerContainer, gatsbyImage} from "./picker.module.css"
+import {graphql, useStaticQuery} from "gatsby";
 
 type Props = {
 	items: PickerItems,
