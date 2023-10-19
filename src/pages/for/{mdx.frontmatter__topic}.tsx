@@ -1,17 +1,20 @@
 import * as React from 'react'
+import * as runtime from "react/jsx-runtime";
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
-import {graphql, PageProps, useStaticQuery} from "gatsby";
+import {graphql, PageProps} from "gatsby";
 import styled from "@emotion/styled";
 import Picker from "../../components/picker";
 import {TertiaryButton} from "../../components/button";
 import {useEffect} from "react";
+import {compileSync, runSync} from "@mdx-js/mdx";
+
 
 type Data = {
 	mdx: {
 		frontmatter: {
 			title: string,
-			images: Array<{
+			flavors: Array<{
 				label: string,
 				value: string,
 				src: File,
@@ -46,10 +49,16 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 	const onPickerChange = ({ target: { value }}) => setTopic(value);
 
 	useEffect(() => {
-		const resolveMdxContent = () =>
-			data?.mdx?.frontmatter?.images?.filter(image => image.value === topic)[0]?.content?.childMdx?.body
-
-		setMdxContent(resolveMdxContent())
+		const getMdxContent = () =>
+			data?.mdx?.frontmatter?.flavors?.filter(flavor => flavor.value === topic)[0]?.content?.childMdx?.body
+		const compileMdxContent = (mdx: string) => {
+			return String(compileSync(mdx, {
+				outputFormat: "function-body",
+				development: false
+			}))
+		}
+		const { default: Content } = runSync(compileMdxContent(getMdxContent()), runtime)
+		setMdxContent(Content())
   }, [topic])
 
 	return (
@@ -58,8 +67,8 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 				<Header>
 					<h2>Getting Started is Simple</h2>
 				</Header>
-				{data?.mdx?.frontmatter?.images?.length > 0 && (
-					<Picker items={data.mdx.frontmatter.images} onChange={onPickerChange}/>
+				{data?.mdx?.frontmatter?.flavors?.length > 0 && (
+					<Picker items={data.mdx.frontmatter.flavors} onChange={onPickerChange}/>
 				)}
 				{mdxContent}
 				<Footer>
@@ -81,7 +90,7 @@ export const query = graphql`
 			frontmatter {
 				title
 				topic
-				images {
+				flavors {
 					label
 					value
 					src {

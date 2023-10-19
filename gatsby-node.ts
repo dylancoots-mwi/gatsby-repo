@@ -5,7 +5,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       topic: String
       slug: String
-      images: [Image]
+      flavors: [Image]
     }
 
     type Mdx implements Node {
@@ -21,4 +21,3 @@ exports.createSchemaCustomization = ({ actions }) => {
   `;
 	createTypes(typeDefs)
 }
-
