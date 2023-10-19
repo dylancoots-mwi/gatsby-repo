@@ -42,7 +42,7 @@ const Footer = styled.div`
 `
 
 const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }) => {
-
+	const showPicker = data?.mdx?.frontmatter?.flavors?.length
 	const [topic, setTopic] = React.useState(data.mdx.frontmatter.topic)
 	const [mdxContent, setMdxContent] = React.useState(children)
 
@@ -51,15 +51,18 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 	useEffect(() => {
 		const getMdxContent = () =>
 			data?.mdx?.frontmatter?.flavors?.filter(flavor => flavor.value === topic)[0]?.content?.childMdx?.body
-		const compileMdxContent = (mdx: string) => {
-			return String(compileSync(mdx, {
+		const compileMdxContent = (mdx: string) =>
+			String(compileSync(mdx, {
 				outputFormat: "function-body",
 				development: false
 			}))
-		}
 		const { default: Content } = runSync(compileMdxContent(getMdxContent()), runtime)
-		setMdxContent(Content())
+		if (showPicker) {
+			setMdxContent(Content())
+		}
   }, [topic])
+
+
 
 	return (
 		<Layout pageTitle={data?.mdx?.frontmatter?.title}>
@@ -67,7 +70,7 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 				<Header>
 					<h2>Getting Started is Simple</h2>
 				</Header>
-				{data?.mdx?.frontmatter?.flavors?.length > 0 && (
+				{showPicker > 0 && (
 					<Picker items={data.mdx.frontmatter.flavors} onChange={onPickerChange}/>
 				)}
 				{mdxContent}

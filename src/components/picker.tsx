@@ -6,7 +6,7 @@ import {graphql, useStaticQuery} from "gatsby";
 
 type Props = {
 	items: PickerItems,
-	onChange: Function
+	onChange: Function,
 }
 
 type PickerItems = Array<{
@@ -33,12 +33,12 @@ const ImageContainer = styled.div`
 	justify-content: center;
 `
 
-const Picker : React.FC<Props> = ({items, onChange}) => {
+const Picker : React.FC<Props> = ({items, onChange, selected = false}) => {
 	return (
     <div className={pickerContainer}>
       {items.map((item, index) => (
         <Label>
-					<input type="radio" value={item.value} key={index} name="platform" onChange={onChange} />
+					<input type="radio" value={item.value} key={index} name="platform" onChange={onChange} selected={selected} />
 					<div>
 						<ImageContainer>
 							<GatsbyImage image={getImage(item.src)} alt={item.label} className={gatsbyImage}/>
