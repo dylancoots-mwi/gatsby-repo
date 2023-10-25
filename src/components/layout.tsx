@@ -7,17 +7,8 @@ import {
 import Header from "./header";
 import Footer from "./footer";
 import PreFooter from "./footer/prefooter";
-const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ pageTitle, children }) => {
-	const data = useStaticQuery(graphql`
-		query {
-			site {
-				siteMetadata {
-          title
-        }
-			}
-		}
-	`)
-	return (
+const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ pageTitle, children }) =>
+	(
 		<div className={container}>
 			<Header/>
 			<main>
@@ -28,6 +19,5 @@ const Layout : React.FC<{ pageTitle: string, children: React.ReactNode }> = ({ p
 			<Footer/>
 		</div>
 	)
-}
 
 export default Layout

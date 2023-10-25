@@ -31,7 +31,9 @@ const Header = () => {
 							<Button silent>Docs</Button>
 						</li>
 						<li className={navLinkItem}>
-							<Button silent>Resources</Button>
+							<Link to="/resources">
+								<Button silent>Resources</Button>
+							</Link>
 						</li>
 						<li className={navLinkItem}>
 							<Link to="/blog">

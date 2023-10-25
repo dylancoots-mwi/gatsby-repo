@@ -5,14 +5,14 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       topic: String
       slug: String
-      flavors: [Image]
+      flavors: [Flavor]
     }
 
     type Mdx implements Node {
       frontmatter: MdxFrontmatter
     }
     
-    type Image {
+    type Flavor {
     	label: String
     	value: String
     	src: File @fileByRelativePath

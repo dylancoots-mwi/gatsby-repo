@@ -5,10 +5,9 @@ import Seo from '../../components/seo'
 import {graphql, PageProps} from "gatsby";
 import styled from "@emotion/styled";
 import Picker from "../../components/picker";
-import {TertiaryButton} from "../../components/button";
+import Button, {TertiaryButton} from "../../components/button";
 import {useEffect} from "react";
 import {compileSync, runSync} from "@mdx-js/mdx";
-
 
 type Data = {
 	mdx: {
@@ -19,7 +18,7 @@ type Data = {
 				value: string,
 				src: File,
 				content: File
-			}>
+			}>,
 		}
 	}
 }
@@ -45,24 +44,21 @@ const ForPage : React.FC<PageProps<Data, React.ReactNode>> = ({ data, children }
 	const showPicker = data?.mdx?.frontmatter?.flavors?.length
 	const [topic, setTopic] = React.useState(data.mdx.frontmatter.topic)
 	const [mdxContent, setMdxContent] = React.useState(children)
-
 	const onPickerChange = ({ target: { value }}) => setTopic(value);
 
 	useEffect(() => {
-		const getMdxContent = () =>
-			data?.mdx?.frontmatter?.flavors?.filter(flavor => flavor.value === topic)[0]?.content?.childMdx?.body
-		const compileMdxContent = (mdx: string) =>
-			String(compileSync(mdx, {
-				outputFormat: "function-body",
-				development: false
-			}))
-		const { default: Content } = runSync(compileMdxContent(getMdxContent()), runtime)
-		if (showPicker) {
-			setMdxContent(Content())
-		}
+		// const getMdxContent = () =>
+			// data?.mdx?.frontmatter?.flavors?.filter(flavor => flavor.value === topic)[0]?.content?.childMdx?.body
+		// const compileMdxContent = (mdx: string) =>
+		// 	String(compileSync(mdx, {
+		// 		outputFormat: "function-body",
+		// 		development: false
+		// 	}))
+		// const { default: Content } = runSync(compileMdxContent(getMdxContent()), runtime)
+		// if (showPicker) {
+		// 	setMdxContent(Content())
+		// }
   }, [topic])
-
-
 
 	return (
 		<Layout pageTitle={data?.mdx?.frontmatter?.title}>
