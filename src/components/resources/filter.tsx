@@ -45,7 +45,7 @@ const Filter : React.FC<{onSearchInput: Function}> = ({ onSearchInput }) => {
 	useEffect(() => onSearchInput(search), [search])
 
 	return <Container>
-		<input type="text" placeholder="Search" onInput={({target: {value}}) => setSearch(value)}/>
+		<input type="text" placeholder="Search" onInput={({target: { value }}) => setSearch(value)}/>
 		<ChipWrapper>
 			{types.map(([type, color]) =>
 				<BaseChip

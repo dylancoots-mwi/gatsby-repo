@@ -77,19 +77,15 @@ const ResourcesPage = ({ data  }) => {
 
 	useEffect(() => {
 		const tag = (new URLSearchParams(location.search))?.get('tag');
-			setFilteredNodes(
-				!!tag
+		const filtered = !!tag
 					? nodes.filter(({childMdx: {frontmatter: {topics, type}}}) => topics.includes(tag) || type === tag)
 					: nodes
-			)
-	}, [])
-
-	useEffect(() =>
-		setFilteredNodes(
-			!!searchText
-				? nodes.filter(({childMdx: {frontmatter: {title}}}) => title.toLowerCase().includes(searchText.toLowerCase()))
-				: nodes
-		), [searchText])
+		if (!!searchText) {
+			setFilteredNodes(filtered.filter(({childMdx: {frontmatter: {title}}}) => title.toLowerCase().includes(searchText.toLowerCase())))
+		} else {
+			setFilteredNodes(filtered)
+		}
+	}, [searchText])
 
 	return (
     <Layout pageTitle="Resourcey Resource Library">
