@@ -73,23 +73,29 @@ query {
 const ResourcesPage = ({ data  }) => {
 	const {allFile: { nodes }} = data;
 	const [filteredNodes, setFilteredNodes] = React.useState(nodes);
+	const [searchText, setSearchText] = React.useState(null);
 
 	useEffect(() => {
 		const tag = (new URLSearchParams(location.search))?.get('tag');
-		if (tag) {
 			setFilteredNodes(
-				nodes.filter(({ childMdx: { frontmatter: { topics, type }}}) => topics.includes(tag) || type === tag)
+				!!tag
+					? nodes.filter(({childMdx: {frontmatter: {topics, type}}}) => topics.includes(tag) || type === tag)
+					: nodes
 			)
-		} else {
-			setFilteredNodes(nodes);
-		}
 	}, [])
+
+	useEffect(() =>
+		setFilteredNodes(
+			!!searchText
+				? nodes.filter(({childMdx: {frontmatter: {title}}}) => title.toLowerCase().includes(searchText.toLowerCase()))
+				: nodes
+		), [searchText])
 
 	return (
     <Layout pageTitle="Resourcey Resource Library">
 			<Wrapper>
 				<FilterWrapper>
-					<Filter/>
+					<Filter onSearchInput={setSearchText}/>
 				</FilterWrapper>
 				<ResourcesWrapper>
 					<Resources nodes={filteredNodes}/>

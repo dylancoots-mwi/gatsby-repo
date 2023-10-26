@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from "@emotion/styled";
 import {css} from "@emotion/react";
-import {ReactNode} from "react";
+import {ReactNode, useEffect} from "react";
 import topics from "./topics";
 
 const Container = styled.div`
@@ -39,9 +39,13 @@ const types = [
 	['video', '#584674'], ['demo', '#f4834f'], ['audio', '#e1567c'], ['pdf', '#8c5393'], ['event', '#f2b712']
 ]
 
-const Filter = () =>
-	<Container>
-		<input type="text" placeholder="Search"/>
+const Filter : React.FC<{onSearchInput: Function}> = ({ onSearchInput }) => {
+	const [search, setSearch] = React.useState(null);
+
+	useEffect(() => onSearchInput(search), [search])
+
+	return <Container>
+		<input type="text" placeholder="Search" onInput={({target: {value}}) => setSearch(value)}/>
 		<ChipWrapper>
 			{types.map(([type, color]) =>
 				<BaseChip
@@ -64,6 +68,7 @@ const Filter = () =>
 				</BaseChip>)
 			}
 		</TopicWrapper>
-	</Container>
+	</Container>;
+}
 
 export default Filter
